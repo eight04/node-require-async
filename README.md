@@ -1,6 +1,8 @@
 node-require-async
 ==================
 
+[![install size](https://packagephobia.now.sh/badge?p=node-require-async)](https://packagephobia.now.sh/result?p=node-require-async)
+
 A require function in node, but an asynchronous one.
 
 This library is built on top of node's builtin `require`, so they share the same module cache.
