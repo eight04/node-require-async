@@ -1,0 +1,16 @@
+{
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"rules": {
+		"dot-notation": 2,
+		"max-statements-per-line": 2,
+    "no-console": 0,
+		"quotes": [2, "double", "avoid-escape"],
+		"semi": [2, "always"]
+	},
+	"extends": [
+		"eslint:recommended"
+	]
+}
