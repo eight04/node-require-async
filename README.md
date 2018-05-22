@@ -59,6 +59,10 @@ Since builtin `require.resolve` is blocking, you may need other libraries to res
 Changelog
 ---------
 
+* 0.1.1 (May 22, 2018)
+
+  - Fix: use files array.
+
 * 0.1.0 (May 22, 2018)
 
-    - First release.
+  - First release.
