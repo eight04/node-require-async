@@ -1,6 +1,8 @@
 node-require-async
 ==================
 
+[![Build Status](https://travis-ci.org/eight04/node-require-async.svg?branch=master)](https://travis-ci.org/eight04/node-require-async)
+[![Coverage Status](https://coveralls.io/repos/github/eight04/node-require-async/badge.svg?branch=master)](https://coveralls.io/github/eight04/node-require-async?branch=master)
 [![install size](https://packagephobia.now.sh/badge?p=node-require-async)](https://packagephobia.now.sh/result?p=node-require-async)
 
 A require function in node, but an asynchronous one.
