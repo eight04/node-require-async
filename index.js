@@ -17,8 +17,10 @@ function createRequireAsync(parent) {
   return filename => {
     if (parent && parent.filename) {
       filename = path.resolve(path.dirname(parent.filename), filename);
-    } else if (!path.isAbsolute(filename)) {
-      return Promise.reject(new TypeError("`filename` must be an absolute path"));
+    } else if (path.isAbsolute(filename)) {
+      filename = path.resolve(filename);
+    } else {
+      return Promise.reject(new TypeError(`'filename' must be an absolute path: ${filename}`));
     }
     // note that currently, it accepts a filename instead of a request id.
     const cachedModule = Module._cache[filename];
