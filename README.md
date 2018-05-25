@@ -58,8 +58,18 @@ requireAsync(filename).then(...)
 
 Since builtin `require.resolve` is blocking, you may need other libraries to resolve filename asynchronously.
 
+If `parentModule` exists, `filename` would be resolved as:
+
+```js
+path.resolve(path.dirname(parentModule.filename), filename)
+```
+
 Changelog
 ---------
+
+* 0.1.2 (May 25, 2018)
+
+  - Add: support relative path when `parentModule` is set.
 
 * 0.1.1 (May 22, 2018)
 
