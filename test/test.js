@@ -1,13 +1,16 @@
 /* eslint-env mocha */
 
 const assert = require("assert");
-const requireAsync = require("..")(module);
+const {rejects} = require("rejected-or-not");
+const createRequireAsync = require("..");
 
 function mustFail() {
   throw new Error("must fail");
 }
 
 describe("requireAsync", () => {
+  const requireAsync = createRequireAsync(module);
+  
   it("basic", () => {
     const FOO_PATH = require.resolve("./fixture/foo");
     return requireAsync(FOO_PATH)
@@ -16,6 +19,13 @@ describe("requireAsync", () => {
         assert(FOO_PATH in require.cache);
         assert(module.children.includes(require.cache[FOO_PATH]));
         assert.equal(require("./fixture/foo"), foo);
+      });
+  });
+  
+  it("relative path", () => {
+    return requireAsync("./fixture/foo.js")
+      .then(foo => {
+        assert.equal(foo.foo(), "foo");
       });
   });
   
@@ -54,5 +64,20 @@ describe("requireAsync", () => {
         assert(err instanceof SyntaxError);
         assert(!(ERROR_PATH in require.cache));
       });
+  });
+});
+
+describe("anonymous requireAsync", () => {
+  const requireAsync = createRequireAsync();
+  
+  it("basic", () => {
+    return requireAsync(require.resolve("./fixture/foo"))
+      .then(foo => {
+        assert.equal(foo.foo(), "foo");
+      });
+  });
+  
+  it("no relative path", () => {
+    return rejects(() => requireAsync("./fixture/foo.js"), TypeError);
   });
 });

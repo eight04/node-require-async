@@ -15,6 +15,11 @@ function stripBOM(text) {
 function createRequireAsync(parent) {
   // https://github.com/nodejs/node/blob/4f0ab76b6c29da74b29125a3ec83bb06e77c2aad/lib/internal/modules/cjs/loader.js#L502
   return filename => {
+    if (parent && parent.filename) {
+      filename = path.resolve(path.dirname(parent.filename), filename);
+    } else if (!path.isAbsolute(filename)) {
+      return Promise.reject(new TypeError("`filename` must be an absolute path"));
+    }
     // note that currently, it accepts a filename instead of a request id.
     const cachedModule = Module._cache[filename];
     if (cachedModule) {
