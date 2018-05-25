@@ -4,10 +4,6 @@ const assert = require("assert");
 const {rejects} = require("rejected-or-not");
 const createRequireAsync = require("..");
 
-function mustFail() {
-  throw new Error("must fail");
-}
-
 describe("requireAsync", () => {
   const requireAsync = createRequireAsync(module);
   
@@ -58,10 +54,8 @@ describe("requireAsync", () => {
   
   it("error", () => {
     const ERROR_PATH = require.resolve("./fixture/error");
-    return requireAsync(ERROR_PATH)
-      .then(mustFail)
-      .catch(err => {
-        assert(err instanceof SyntaxError);
+    return rejects(requireAsync(ERROR_PATH))
+      .then(() => {
         assert(!(ERROR_PATH in require.cache));
       });
   });
@@ -78,6 +72,6 @@ describe("anonymous requireAsync", () => {
   });
   
   it("no relative path", () => {
-    return rejects(() => requireAsync("./fixture/foo.js"), TypeError);
+    return rejects(requireAsync("./fixture/foo.js"), TypeError);
   });
 });
