@@ -69,6 +69,11 @@ path.resolve(path.dirname(parentModule.filename), filename)
 Changelog
 ---------
 
+* 0.2.0 (Jun 26, 2018)
+
+  - Add: support JSON files.
+  - Add: `extension` argument in `requireAsync`. It decides how to compile the content.
+
 * 0.1.2 (May 25, 2018)
 
   - Add: support relative path when `parentModule` is set.
