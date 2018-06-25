@@ -47,9 +47,9 @@ This module exports a single function.
 
 You usually pass `module` as the `parentModule` parameter. `requireAsync` would help you setup `parentModule.children` when a module is loaded.
 
-### requireAsync(filename): moduleExports
+### requireAsync(filename, extension?): moduleExports
 
-Note that this function accepts a filename not a moduleId, which means that you have to resolve the moduleId into filename before passing it to `requireAsync`:
+Note that this function accepts a filename instead of a moduleId, which means that you have to resolve the moduleId into a filename before passing it to `requireAsync`:
 
 ```js
 const filename = require.resolve("./foo"); // "/path/to/foo.js"
@@ -63,6 +63,8 @@ If `parentModule` exists, `filename` would be resolved as:
 ```js
 path.resolve(path.dirname(parentModule.filename), filename)
 ```
+
+`extension` decides how to compile the file. If `extension` is `.json` then use `JSON.parse`. If `extension` is `.js` then use `module._compile`. Default: `path.extname(filename)`.
 
 Changelog
 ---------
