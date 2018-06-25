@@ -40,8 +40,10 @@ function createRequireAsync(parent) {
       .then(content => {
         if (extension === ".json") {
           mod.exports = JSON.parse(stripBOM(content));
-        } else {
+        } else if (extension === ".js") {
           mod._compile(stripBOM(content), filename);
+        } else {
+          throw new TypeError(`unknown file type: ${extension}`);
         }
         return mod.exports;
       })

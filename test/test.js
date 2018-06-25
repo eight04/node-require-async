@@ -29,9 +29,17 @@ describe("requireAsync", () => {
       });
   });
   
-  it("customized extension", () => {
-    const FOO_PATH = require.resolve("./fixture/foo.unknown", ".js");
-    return requireAsync(FOO_PATH)
+  it("unknown extension", () => {
+    const FOO_PATH = require.resolve("./fixture/foo.unknown");
+    return rejects(requireAsync(FOO_PATH))
+      .then(() => {
+        assert(!(FOO_PATH in require.cache));
+      });
+  });
+  
+  it("custom extension", () => {
+    const FOO_PATH = require.resolve("./fixture/foo.unknown");
+    return requireAsync(FOO_PATH, ".js")
       .then(foo => {
         assert.equal(foo.foo(), "foo");
         assert(FOO_PATH in require.cache);
