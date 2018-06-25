@@ -18,6 +18,28 @@ describe("requireAsync", () => {
       });
   });
   
+  it("json", () => {
+    const FOO_PATH = require.resolve("./fixture/foo.json");
+    return requireAsync(FOO_PATH)
+      .then(foo => {
+        assert.equal(foo.foo, "foo");
+        assert(FOO_PATH in require.cache);
+        assert(module.children.includes(require.cache[FOO_PATH]));
+        assert.equal(require("./fixture/foo.json"), foo);
+      });
+  });
+  
+  it("customized extension", () => {
+    const FOO_PATH = require.resolve("./fixture/foo.unknown", ".js");
+    return requireAsync(FOO_PATH)
+      .then(foo => {
+        assert.equal(foo.foo(), "foo");
+        assert(FOO_PATH in require.cache);
+        assert(module.children.includes(require.cache[FOO_PATH]));
+        assert.equal(require("./fixture/foo.unknown"), foo);
+      });
+  });
+  
   it("relative path", () => {
     return requireAsync("./fixture/foo.js")
       .then(foo => {

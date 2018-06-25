@@ -14,7 +14,7 @@ function stripBOM(text) {
 
 function createRequireAsync(parent) {
   // https://github.com/nodejs/node/blob/4f0ab76b6c29da74b29125a3ec83bb06e77c2aad/lib/internal/modules/cjs/loader.js#L502
-  return filename => {
+  return (filename, extension = path.extname(filename)) => {
     if (parent && parent.filename) {
       filename = path.resolve(path.dirname(parent.filename), filename);
     } else if (path.isAbsolute(filename)) {
@@ -38,7 +38,11 @@ function createRequireAsync(parent) {
     mod.paths = Module._nodeModulePaths(path.dirname(filename));
     return readFile(filename, "utf8")
       .then(content => {
-        mod._compile(stripBOM(content), filename);
+        if (extension === ".json") {
+          mod.exports = JSON.parse(stripBOM(content));
+        } else {
+          mod._compile(stripBOM(content), filename);
+        }
         return mod.exports;
       })
       .catch(err => {
