@@ -17,9 +17,9 @@
   "dependencies": {},
   "devDependencies": {
     "coveralls": "^3.0.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "mocha": "^5.2.0",
-    "nyc": "^11.8.0",
+    "nyc": "^14.1.1",
     "rejected-or-not": "^1.0.0"
   },
   "repository": "eight04/node-require-async"
